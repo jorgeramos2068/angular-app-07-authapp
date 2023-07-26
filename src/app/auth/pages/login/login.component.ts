@@ -26,10 +26,13 @@ export class LoginComponent {
     if (email && password) {
       this.authService.login(email, password).subscribe({
         next: (resp) => {
-          console.log(resp);
+          if (resp) {
+            this.router.navigateByUrl('/dashboard');
+          } else {
+            // TODO: Show error message
+          }
         },
       });
-      //this.router.navigateByUrl('/dashboard');
     }
   }
 }

@@ -1,5 +1,9 @@
 # Auth
 
+Sample Angular application that shows a way to login and protect pages.
+
+This project works along with the [Node.js App - Auth Server](https://github.com/jorgeramos2068/node-app-10-authserver) backend application.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.2.
 
 ## Development server

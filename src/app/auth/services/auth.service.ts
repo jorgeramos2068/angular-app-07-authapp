@@ -60,4 +60,26 @@ export class AuthService {
     // localStorage.removeItem('meanToken');
     localStorage.clear();
   }
+
+  register(
+    name: string,
+    email: string,
+    password: string
+  ): Observable<boolean | string> {
+    const url: string = `${this.baseBackendUrl}/auth/new`;
+    const body = { name, email, password };
+    return this.http.post<AuthResponse>(url, body).pipe(
+      tap((resp) => {
+        if (resp.ok) {
+          localStorage.setItem('meanToken', resp.token!);
+          this._user = {
+            name: resp.name!,
+            uid: resp.uid!,
+          };
+        }
+      }),
+      map((validResponse) => validResponse.ok),
+      catchError((err) => of(err.error.msg))
+    );
+  }
 }

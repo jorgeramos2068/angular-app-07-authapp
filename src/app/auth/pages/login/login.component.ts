@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,14 +10,26 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent {
   public form: FormGroup = this.formBuilder.group({
-    email: ['test1@test.com', [Validators.required, Validators.email]],
-    password: ['123456', [Validators.required, Validators.minLength(6)]],
+    email: ['test1@gmail.com', [Validators.required, Validators.email]],
+    password: ['12345', [Validators.required, Validators.minLength(5)]],
   });
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   login(): void {
     console.log(this.form.value);
-    console.log(this.form.valid);
+    const { email, password } = this.form.value;
+    if (email && password) {
+      this.authService.login(email, password).subscribe({
+        next: (resp) => {
+          console.log(resp);
+        },
+      });
+      //this.router.navigateByUrl('/dashboard');
+    }
   }
 }

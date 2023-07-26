@@ -26,10 +26,6 @@ export class AuthService {
       tap((resp) => {
         if (resp.ok) {
           localStorage.setItem('meanToken', resp.token!);
-          this._user = {
-            name: resp.name!,
-            uid: resp.uid!,
-          };
         }
       }),
       map((validResponse) => validResponse.ok),
@@ -47,8 +43,9 @@ export class AuthService {
       map((resp) => {
         localStorage.setItem('meanToken', resp.token!);
         this._user = {
-          name: resp.name!,
           uid: resp.uid!,
+          name: resp.name!,
+          email: resp.email!,
         };
         return resp.ok;
       }),
@@ -72,10 +69,6 @@ export class AuthService {
       tap((resp) => {
         if (resp.ok) {
           localStorage.setItem('meanToken', resp.token!);
-          this._user = {
-            name: resp.name!,
-            uid: resp.uid!,
-          };
         }
       }),
       map((validResponse) => validResponse.ok),
